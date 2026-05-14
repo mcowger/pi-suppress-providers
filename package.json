@@ -1,17 +1,27 @@
 {
-	"name": "pi-suppress-providers",
+	"name": "@mcowger/pi-suppress-providers",
 	"author": "Matt Cowger",
 	"version": "0.1.0",
-	"description": "Pi extension that suppresses providers not listed in enabledProviders",
+	"description": "Pi extension that limits which providers appear in model selection by suppressing env vars for non-enabled providers",
 	"license": "MIT",
 	"type": "module",
 	"keywords": [
 		"pi-package",
 		"pi",
 		"pi-extension",
+		"pi-suppress",
 		"provider",
-		"suppress"
+		"suppress",
+		"enabledProviders"
 	],
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/mcowger/pi-suppress-providers.git"
+	},
+	"homepage": "https://github.com/mcowger/pi-suppress-providers#readme",
+	"bugs": {
+		"url": "https://github.com/mcowger/pi-suppress-providers/issues"
+	},
 	"engines": {
 		"bun": ">=1.0"
 	},

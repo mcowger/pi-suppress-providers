@@ -12,7 +12,22 @@ This extension reads `enabledProviders` from `settings.json` and temporarily rem
 
 ## Installation
 
-### Option 1: As a local path package (recommended)
+### Option 1: As an npm package (recommended)
+
+```bash
+pi install @mcowger/pi-suppress-providers
+```
+
+Or add to `~/.pi/agent/settings.json`:
+
+```json
+{
+  "enabledProviders": ["openrouter"],
+  "packages": ["npm:@mcowger/pi-suppress-providers"]
+}
+```
+
+### Option 2: As a local path package
 
 Add to `~/.pi/agent/settings.json`:
 
@@ -23,13 +38,13 @@ Add to `~/.pi/agent/settings.json`:
 }
 ```
 
-### Option 2: Copy to extensions directory
+### Option 3: Copy to extensions directory
 
 ```bash
 cp -r /path/to/pi-suppress-providers ~/.pi/agent/extensions/
 ```
 
-### Option 3: One-off with --extension flag
+### Option 4: One-off with --extension flag
 
 ```bash
 pi --extension /path/to/pi-suppress-providers/index.ts
