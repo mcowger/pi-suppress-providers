@@ -1,0 +1,44 @@
+{
+	"name": "pi-suppress-providers",
+	"author": "Matt Cowger",
+	"version": "0.1.0",
+	"description": "Pi extension that suppresses providers not listed in enabledProviders",
+	"license": "MIT",
+	"type": "module",
+	"keywords": [
+		"pi-package",
+		"pi",
+		"pi-extension",
+		"provider",
+		"suppress"
+	],
+	"engines": {
+		"bun": ">=1.0"
+	},
+	"files": [
+		"index.ts",
+		"src/",
+		"README.md"
+	],
+	"scripts": {
+		"postinstall": "lefthook install",
+		"check": "bunx tsc --noEmit",
+		"format": "biome format --write .",
+		"format:check": "biome format .",
+		"lint": "biome lint .",
+		"pack:dry-run": "bun pack --dry-run"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "2.4.14",
+		"lefthook": "2.1.6"
+	},
+	"peerDependencies": {
+		"@earendil-works/pi-ai": "0.74.0",
+		"@earendil-works/pi-coding-agent": "0.74.0"
+	},
+	"pi": {
+		"extensions": [
+			"./index.ts"
+		]
+	}
+}
