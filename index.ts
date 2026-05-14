@@ -1,29 +1,16 @@
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
-import { log } from "./src/log.js";
-import { readEnabledProviders } from "./src/settings.js";
+import { readEnabledProviders, suppressProviderEnvVars } from "./src/settings.js";
+
+const enabledProviders = readEnabledProviders();
+const savedEnv = enabledProviders && enabledProviders.length > 0 ? suppressProviderEnvVars(enabledProviders) : {};
 
 export default function suppressProvidersExtension(pi: ExtensionAPI) {
-	pi.on("session_start", async (_event, ctx) => {
-		const enabledProviders = readEnabledProviders();
-		if (!enabledProviders || enabledProviders.length === 0) {
-			log("no enabledProviders configured, nothing to suppress");
-			return;
+	if (Object.keys(savedEnv).length === 0) return;
+
+	// Restore env vars once pi has started and models are resolved
+	pi.on("session_start", async () => {
+		for (const [key, value] of Object.entries(savedEnv)) {
+			process.env[key] = value;
 		}
-
-		const enabledSet = new Set(enabledProviders);
-
-		// Collect unique provider names from all registered models
-		const allModels = ctx.modelRegistry.getAll();
-		const providerNames = [...new Set(allModels.map((m) => m.provider))];
-
-		for (const provider of providerNames) {
-			if (!enabledSet.has(provider)) {
-				log("unregistering", { provider });
-				pi.unregisterProvider(provider);
-			}
-		}
-
-		const kept = providerNames.filter((p) => enabledSet.has(p));
-		log("enabled", { providers: kept });
 	});
 }
