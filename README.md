@@ -4,7 +4,7 @@ A [pi](https://github.com/earendil-works/pi-mono) extension that suppresses (unr
 
 ## Problem
 
-Pi makes all providers available whenever their API keys are found in the environment. For example, if `OPENROUTER_API_KEY` is set, all OpenRouter models appear regardless of what you configure. The same happens with `GH_TOKEN` and GitHub Copilot models. The `enabledProviders` setting is not honored.
+Pi makes all providers available whenever their API keys are found in the environment. For example, if `OPENROUTER_API_KEY` is set, all OpenRouter models appear regardless of what you configure. The same happens with `GH_TOKEN` and GitHub Copilot models.
 
 ## Solution
 
