@@ -24,7 +24,6 @@ Thumbs.db
 *.tsbuildinfo
 
 # Bun
-bun.lock
 
 # Logs
 *.log
