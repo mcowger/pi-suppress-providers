@@ -52,7 +52,7 @@ pi --extension /path/to/pi-suppress-providers/index.ts
 
 ## Configuration
 
-In `~/.pi/agent/settings.json`, add the `enabledProviders` array with the provider names you want to keep:
+In pi's resolved `settings.json` (default `~/.pi/agent/settings.json`, or the path specified by `PI_CODING_AGENT_DIR`), add the `enabledProviders` array with the provider names you want to keep:
 
 ```json
 {

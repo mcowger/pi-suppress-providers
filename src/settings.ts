@@ -1,13 +1,13 @@
 import { existsSync, readFileSync } from "node:fs";
-import { homedir } from "node:os";
 import { join } from "node:path";
+import { getAgentDir } from "@earendil-works/pi-coding-agent";
 import { log } from "./log.js";
 import { PROVIDER_ENV_VARS } from "./provider-env.js";
 
-const SETTINGS_PATH = join(homedir(), ".pi", "agent", "settings.json");
+const SETTINGS_PATH = join(getAgentDir(), "settings.json");
 
 /**
- * Read `enabledProviders` from ~/.pi/agent/settings.json.
+ * Read `enabledProviders` from pi's resolved settings.json.
  * Returns undefined if the field is absent or settings.json doesn't exist.
  */
 export function readEnabledProviders(): string[] | undefined {
