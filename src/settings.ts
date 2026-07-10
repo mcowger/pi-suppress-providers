@@ -2,7 +2,6 @@ import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { getAgentDir } from "@earendil-works/pi-coding-agent";
 import { log } from "./log.js";
-import { PROVIDER_ENV_VARS } from "./provider-env.js";
 
 const SETTINGS_PATH = join(getAgentDir(), "settings.json");
 
@@ -30,30 +29,6 @@ export function readEnabledProviders(): string[] | undefined {
 		log("error reading settings.json", { error: String(err) });
 		return undefined;
 	}
-}
-
-/**
- * Delete env vars for all providers NOT in the enabled list.
- * Must run before pi loads models (in the extension factory, not in session_start).
- * Returns the list of deleted env vars so they can be restored if needed.
- */
-export function suppressProviderEnvVars(enabledProviders: string[]): Record<string, string> {
-	const enabledSet = new Set(enabledProviders);
-	const deleted: Record<string, string> = {};
-
-	for (const [provider, envVars] of Object.entries(PROVIDER_ENV_VARS) as [string, string[]][]) {
-		if (enabledSet.has(provider)) continue;
-
-		for (const envVar of envVars) {
-			const value = process.env[envVar];
-			if (value) {
-				deleted[envVar] = value;
-				delete process.env[envVar];
-			}
-		}
-	}
-
-	return deleted;
 }
 
 /** Strip // line comments and trailing commas (JSONC support) */

@@ -1,5 +1,6 @@
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
-import { readEnabledProviders, suppressProviderEnvVars } from "./src/settings.js";
+import { suppressProviderEnvVars } from "./src/provider-env.js";
+import { readEnabledProviders } from "./src/settings.js";
 
 const enabledProviders = readEnabledProviders();
 const savedEnv = enabledProviders && enabledProviders.length > 0 ? suppressProviderEnvVars(enabledProviders) : {};

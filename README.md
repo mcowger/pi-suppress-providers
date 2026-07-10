@@ -8,7 +8,7 @@ Pi makes all providers available whenever their API keys are found in the enviro
 
 ## Solution
 
-This extension reads `enabledProviders` from `settings.json` and temporarily removes the environment variables for non-enabled providers before pi loads its model registry. After pi resolves which models are available, the env vars are restored so they remain accessible to bash commands and other tools.
+This extension reads `enabledProviders` from `settings.json` and temporarily removes credentials for non-enabled providers before pi loads its model registry. After pi resolves which models are available, the env vars are restored so they remain accessible to bash commands and other tools.
 
 ## Installation
 
@@ -73,36 +73,6 @@ If `enabledProviders` is not set or is empty, the extension does nothing.
 
 ## Supported Providers
 
-Provider names must match the names pi uses internally:
+Provider names must match Pi's internal names. The extension discovers Pi's built-in providers and API-key environment variables dynamically, so support automatically follows the installed Pi version. It also suppresses Pi's ambient Amazon Bedrock and Google Vertex credentials.
 
-| Provider | Env Var(s) |
-|----------|-----------|
-| `anthropic` | `ANTHROPIC_API_KEY`, `ANTHROPIC_OAUTH_TOKEN` |
-| `amazon-bedrock` | `AWS_PROFILE`, `AWS_ACCESS_KEY_ID`, `AWS_BEARER_TOKEN_BEDROCK` |
-| `openai` | `OPENAI_API_KEY` |
-| `azure-openai-responses` | `AZURE_OPENAI_API_KEY` |
-| `deepseek` | `DEEPSEEK_API_KEY` |
-| `google` | `GEMINI_API_KEY` |
-| `google-vertex` | `GOOGLE_CLOUD_API_KEY`, `GOOGLE_CLOUD_PROJECT`, `GOOGLE_CLOUD_LOCATION`, `GOOGLE_APPLICATION_CREDENTIALS` |
-| `groq` | `GROQ_API_KEY` |
-| `cerebras` | `CEREBRAS_API_KEY` |
-| `xai` | `XAI_API_KEY` |
-| `openrouter` | `OPENROUTER_API_KEY` |
-| `vercel-ai-gateway` | `AI_GATEWAY_API_KEY` |
-| `mistral` | `MISTRAL_API_KEY` |
-| `minimax` | `MINIMAX_API_KEY` |
-| `minimax-cn` | `MINIMAX_CN_API_KEY` |
-| `moonshotai` | `MOONSHOT_API_KEY` |
-| `huggingface` | `HF_TOKEN` |
-| `fireworks` | `FIREWORKS_API_KEY` |
-| `together` | `TOGETHER_API_KEY` |
-| `opencode` | `OPENCODE_API_KEY` |
-| `opencode-go` | `OPENCODE_API_KEY` |
-| `github-copilot` | `COPILOT_GITHUB_TOKEN`, `GH_TOKEN`, `GITHUB_TOKEN` |
-| `kimi-coding` | `KIMI_API_KEY` |
-| `cloudflare-workers-ai` | `CLOUDFLARE_API_KEY` |
-| `cloudflare-ai-gateway` | `CLOUDFLARE_API_KEY` |
-| `xiaomi` | `XIAOMI_API_KEY` |
-| `xiaomi-token-plan-cn` | `XIAOMI_TOKEN_PLAN_CN_API_KEY` |
-| `xiaomi-token-plan-ams` | `XIAOMI_TOKEN_PLAN_AMS_API_KEY` |
-| `xiaomi-token-plan-sgp` | `XIAOMI_TOKEN_PLAN_SGP_API_KEY` |
+Providers that share a credential environment variable cannot be hidden independently. If that variable is needed by an enabled provider, it remains available and Pi may show every provider that uses it.
